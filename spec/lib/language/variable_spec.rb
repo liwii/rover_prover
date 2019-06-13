@@ -68,15 +68,15 @@ describe Variable do
     let (:x_unification) { UnificationTerm.new('x') }
 
     it "returns true if its name is same as the argument's" do
-      expect(x1.eql?(x2)).to be true
+      expect(x1).to eql x2
     end
 
     it "returns false if its name is different from the argument's" do
-      expect(x1.eql?(y)).to be false
+      expect(x1).not_to eql y
     end
 
     it "returns false if the class of the argument is not Variable" do
-      expect(x1.eql?(x_unification)).to be false
+      expect(x1).not_to eql x_unification
     end
   end
 
