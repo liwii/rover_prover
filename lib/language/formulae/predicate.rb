@@ -1,9 +1,10 @@
-require_relative '../term.rb'
+require_relative '../formulae.rb'
 
-class Function < Term
-  attr_reader :terms
+class Predicate < Formulae
+  attr_reader :name, :terms
+
   def initialize(name, terms)
-    super(name)
+    @name = name
     @terms = terms
   end
 
@@ -17,11 +18,11 @@ class Function < Term
 
   def replace(old, new)
     return new if eql?(old)
-    Function.new(@name, @terms.map { |term| term.replace(old, new) })
+    Predicate.new(@name, @terms.map { |term| term.replace(old, new) })
   end
 
+
   def set_instantiation_time(time)
-    @time = time
     @terms.each{ |term| term.set_instantiation_time(time) }
   end
 
@@ -29,16 +30,11 @@ class Function < Term
     @terms.any? { |term| term.occurs(unification_term) }
   end
 
-
-  def eql?(function)
-    return false unless function.is_a?(Function)
-    return false unless @name == function.name
-    return false unless @terms.length == function.terms.length
-    @terms.zip(function.terms).all? { |t1, t2| t1.eql?(t2) }
-  end
-
-  def to_s
-    "#{@name}(#{@terms.map(&:to_s).join(', ')})"
+  def eql?(exp)
+    return false unless exp.is_a?(Predicate)
+    return false unless @name == exp.name
+    return false unless @terms.length == exp.terms.length
+    @terms.zip(exp.terms).all? { |t1, t2| t1.eql?(t2) }
   end
 
 end

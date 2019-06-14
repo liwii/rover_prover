@@ -1,4 +1,4 @@
-require_relative 'terms.rb'
+require_relative '../term.rb'
 
 class Variable < Term
   def free_variables

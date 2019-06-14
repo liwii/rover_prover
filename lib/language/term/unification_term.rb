@@ -1,4 +1,4 @@
-require_relative 'terms.rb'
+require_relative '../term.rb'
 
 class UnificationTerm < Term
   def free_variables
