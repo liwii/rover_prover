@@ -1,6 +1,6 @@
 require_relative '../formula.rb'
 
-class And
+class Or
   attr_reader :formula_a, :formula_b
   include Expression
 
@@ -19,7 +19,7 @@ class And
 
   def replace(old, new)
     return new if eql?(old)
-    And.new(@formula_a.replace(old, new), @formula_b.replace(old, new))
+    Or.new(@formula_a.replace(old, new), @formula_b.replace(old, new))
   end
 
   def occurs(unification_term)
@@ -32,11 +32,11 @@ class And
   end
 
   def to_s
-    "#{@formula_a.to_s} ∧ #{@formula_b.to_s}"
+    "#{@formula_a.to_s} ∨ #{@formula_b.to_s}"
   end
 
   def eql?(exp)
-    return false unless exp.is_a?(And)
+    return false unless exp.is_a?(Or)
     @formula_a.eql?(exp.formula_a) && @formula_b.eql?(exp.formula_b)
   end
 end
