@@ -1,5 +1,5 @@
 require_relative 'expression.rb'
 
-class Formulae
+class Formula
   include Expression
 end

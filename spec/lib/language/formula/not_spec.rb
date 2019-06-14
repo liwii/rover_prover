@@ -38,7 +38,7 @@ describe Not do
     end
 
     it 'replace terms in the function' do
-      expect(n_p.replace(p, q).formulae).to eql q
+      expect(n_p.replace(p, q).formula).to eql q
     end
   end
 
@@ -55,7 +55,7 @@ describe Not do
     let (:new_time) { 10 }
     before { n_p.set_instantiation_time(new_time) }
     it 'updates time' do
-      expect(n_p.formulae.terms.all? { |x| x.time == new_time }).to be true
+      expect(n_p.formula.terms.all? { |x| x.time == new_time }).to be true
     end
   end
 

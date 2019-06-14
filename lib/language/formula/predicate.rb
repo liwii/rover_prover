@@ -1,6 +1,6 @@
-require_relative '../formulae.rb'
+require_relative '../formula.rb'
 
-class Predicate < Formulae
+class Predicate < Formula
   attr_reader :name, :terms
   include Expression
 
