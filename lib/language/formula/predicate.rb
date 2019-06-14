@@ -2,7 +2,6 @@ require_relative '../formula.rb'
 
 class Predicate < Formula
   attr_reader :name, :terms
-  include Expression
 
   def initialize(name, terms)
     @name = name

@@ -1,8 +1,7 @@
 require_relative '../formula.rb'
 
-class Not
+class Not < Formula
   attr_reader :formula
-  include Expression
 
   def initialize(formula)
     @formula = formula

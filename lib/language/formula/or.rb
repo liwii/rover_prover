@@ -1,8 +1,7 @@
 require_relative '../formula.rb'
 
-class Or
+class Or < Formula
   attr_reader :formula_a, :formula_b
-  include Expression
 
   def initialize(formula_a, formula_b)
     @formula_a = formula_a
