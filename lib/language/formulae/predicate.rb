@@ -2,6 +2,7 @@ require_relative '../formulae.rb'
 
 class Predicate < Formulae
   attr_reader :name, :terms
+  include Expression
 
   def initialize(name, terms)
     @name = name
@@ -21,13 +22,16 @@ class Predicate < Formulae
     Predicate.new(@name, @terms.map { |term| term.replace(old, new) })
   end
 
-
   def set_instantiation_time(time)
     @terms.each{ |term| term.set_instantiation_time(time) }
   end
 
   def occurs(unification_term)
     @terms.any? { |term| term.occurs(unification_term) }
+  end
+
+  def to_s
+    "#{@name}(#{terms.join(', ')})"
   end
 
   def eql?(exp)
