@@ -41,4 +41,22 @@ class Function < Term
     "#{@name}(#{@terms.map(&:to_s).join(', ')})"
   end
 
+  def unify(term)
+    return term.unify(self) if term.is_a?(UnificationTerm)
+    return nil unless term.is_a?(Function)
+    return nil unless @terms.length == term.terms.length
+    term_pair = @terms.zip(term.terms)
+    subst = {}
+
+    term_pair.each do |term_a, term_b|
+      subst.each do |k, v| 
+        term_a = term_a.replace(k, v)
+        term_b = term_b.replace(k, v)
+      end
+      sub = term_a.unify(term_b)
+      return nil if sub == nil
+      subst.merge!(sub)
+    end
+    subst
+  end
 end

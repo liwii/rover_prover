@@ -30,4 +30,9 @@ class UnificationTerm < Term
     return false unless uni.is_a?(UnificationTerm)
     @name == uni.name
   end
+
+  def unify(term)
+    return nil if term.occurs(self) || @time > term.time
+    { self => term }
+  end
 end

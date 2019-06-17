@@ -26,4 +26,8 @@ module Expression
   def eql?(term)
     raise NotImplementedError
   end
+
+  def unify(term)
+    nil
+  end
 end

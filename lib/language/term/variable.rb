@@ -30,4 +30,11 @@ class Variable < Term
     return false unless var.is_a?(Variable)
     @name == var.name
   end
+
+  def unify(term)
+    return term.unify(self) if term.is_a?(UnificationTerm)
+    return nil unless term.is_a?(Variable)
+    return nil unless eql?(term)
+    {}
+  end
 end

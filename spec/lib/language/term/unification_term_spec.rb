@@ -84,4 +84,23 @@ describe UnificationTerm do
     end
   end
 
+  describe 'unify' do
+    let (:x) { UnificationTerm.new('x') }
+    let (:y) { Variable.new('y') }
+    let (:f) { Function.new('f', [x] ) }
+    let (:g) { Function.new('g', [y] ) }
+
+    it 'returns nil if it occurs in the argument' do
+      expect(x.unify(f)).to be nil
+    end
+
+    it 'returns nil if the time of the argument is longer then that of itself' do
+      x.set_instantiation_time(100)
+      expect(x.unify(g)).to be nil
+    end
+
+    it 'returns unified hash otherwise' do
+      expect(x.unify(g)).to include( { x => g } )
+    end
+  end
 end

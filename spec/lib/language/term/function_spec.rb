@@ -99,13 +99,37 @@ describe Function do
       expect(f).not_to eql f3
     end
 
-    it "returns false if the name of the functions are different" do
+    it 'returns false if the name of the functions are different' do
       expect(f).not_to eql g
     end
 
-    it "returns false if the argument is not a function" do
+    it 'returns false if the argument is not a function' do
       expect(f).not_to eql f_var
     end
   end
 
+  describe 'unify' do
+    let (:x) { Variable.new('x') }
+    let (:y) { Variable.new('y') }
+    let (:s) { UnificationTerm.new('s') }
+    let (:f) { Function.new('f', [s, x]) }
+    let (:g) { Function.new('g', [x, y]) }
+    let (:f2) { Function.new('f', [g, x]) }
+    let (:f3) { Function.new('f', [s, x, s]) }
+    it 'returns nil if the argument is not function' do
+      expect(f.unify(x)).to be nil
+    end
+
+    it 'returns nil if the name of the argument is not the same as that of itself' do
+      expect(f.unify(g)).to be nil
+    end
+
+    it 'returns nil if the number of terms in the argument is not the same as that of itself' do
+      expect(f.unify(f3)).to be nil
+    end
+
+    it 'returns the result of unification otherwise' do
+      expect(f.unify(f2)).to include( { s => g } )
+    end
+  end
 end

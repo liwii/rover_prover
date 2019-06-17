@@ -106,4 +106,31 @@ describe Predicate do
       expect(p).not_to eql p_fun
     end
   end
+
+  describe 'unify' do
+    let (:x) { Variable.new('x') }
+    let (:y) { Variable.new('y') }
+    let (:s) { UnificationTerm.new('s') }
+    let (:g) { Function.new('g', [x, y]) }
+    let (:p) { Predicate.new('p', [s, x]) }
+    let (:q) { Predicate.new('q', [x, y]) }
+    let (:p2) { Predicate.new('p', [g, x]) }
+    let (:p3) { Predicate.new('p', [s, x, s]) }
+
+    it 'returns nil if the argument is not function' do
+      expect(p.unify(x)).to be nil
+    end
+
+    it 'returns nil if the name of the argument is not the same as that of itself' do
+      expect(p.unify(q)).to be nil
+    end
+
+    it 'returns nil if the number of terms in the argument is not the same as that of itself' do
+      expect(p.unify(p3)).to be nil
+    end
+
+    it 'returns the result of unification otherwise' do
+      expect(p.unify(p2)).to include( { s => g } )
+    end
+  end
 end

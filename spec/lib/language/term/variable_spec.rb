@@ -80,4 +80,21 @@ describe Variable do
     end
   end
 
+  describe 'unify' do
+    let (:x) { Variable.new('x') }
+    let (:y) { Variable.new('y') }
+    let (:x_fun) { Function.new('x', []) }
+
+    it 'returns nil if the argument is not variable' do
+      expect(x.unify(x_fun)).to be nil
+    end
+
+    it 'returns nil if the argument is not equal to itself' do
+      expect(x.unify(y)).to be nil
+    end
+
+    it 'returns empty hash if the argument is equal to itself' do
+      expect(x.unify(x)).to eq({})
+    end
+  end
 end
