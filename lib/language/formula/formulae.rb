@@ -1,0 +1,7 @@
+require_relative 'and.rb'
+require_relative 'implies.rb'
+require_relative 'or.rb'
+require_relative 'there_exists.rb'
+require_relative 'for_all.rb'
+require_relative 'not.rb'
+require_relative 'predicate.rb'
