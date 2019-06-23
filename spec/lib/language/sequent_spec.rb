@@ -14,6 +14,62 @@ describe Sequent do
   let (:sequent2) { Sequent.new([p, q], [And.new(q, r), q, r], [], 0) }
   let (:sequent3) { Sequent.new([p, r], [And.new(q, r), q, r], [], 0) }
 
+  describe 'left_add' do
+    before { sequent.left_add(r) }
+    it 'adds formula to left and sets up depth table' do
+      expect(sequent.left).to include(r)
+      expect(sequent.left_get_depth(r)).to eq 0
+    end
+  end
+
+  describe 'right_add' do
+    before { sequent.right_add(p) }
+    it 'adds formula to right and sets up depth table' do
+      expect(sequent.right).to include(p)
+      expect(sequent.right_get_depth(p)).to eq 0
+    end
+  end
+
+  describe 'left_remove' do
+    before { sequent.left_remove(p) }
+    it 'removes formula to left and deletes key in depth table' do
+      expect(sequent.left).not_to include(p)
+      expect(sequent.left_get_depth(p)).to be nil
+    end
+  end
+
+  describe 'right_remove' do
+    before { sequent.right_remove(r) }
+    it 'removes formula to right and deletes key in depth table' do
+      expect(sequent.right).not_to include(r)
+      expect(sequent.right_get_depth(r)).to be nil
+    end
+  end
+
+  describe 'left_get_depth, left_set_depth' do
+    let(:depth) { 10 }
+    before { sequent.left_set_depth(p, depth) }
+    it 'sets up depth table correctly' do
+      expect(sequent.left_get_depth(p)).to eq depth
+    end
+  end
+
+  describe 'right_get_depth, right_set_depth' do
+    let(:depth) { 10 }
+    before { sequent.right_set_depth(q, depth) }
+    it 'sets up depth table correctly' do
+      expect(sequent.right_get_depth(q)).to eq depth
+    end
+  end
+
+  describe 'right_remove' do
+    before { sequent.right_remove(r) }
+    it 'removes formula to right and deletes key in depth table' do
+      expect(sequent.right).not_to include(r)
+      expect(sequent.right_get_depth(r)).to be nil
+    end
+  end
+
   describe 'free_variables' do
     it 'contains all the variables in the right and the left' do
       variables = sequent.free_variables

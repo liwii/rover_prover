@@ -1,10 +1,50 @@
 class Sequent
   attr_reader :left, :right, :siblings, :depth
   def initialize(left, right, siblings, depth)
-    @left = left
-    @right = right
+    @left = []
+    @right = []
+    @left_depth_tbl = {}
+    @right_depth_tbl = {}
+    left.each { |l| left_add(l) }
+    right.each { |l| right_add(l) }
     @siblings = siblings
     @depth = depth
+  end
+
+  def left_add(l)
+    @left.push(l)
+    @left_depth_tbl[l] = 0
+  end
+
+  def right_add(r)
+    @right.push(r)
+    @right_depth_tbl[r] = 0
+  end
+
+  def left_remove(l)
+    @left.delete(l)
+    @left_depth_tbl.delete(l)
+  end
+
+  def right_remove(r)
+    @right.delete(r)
+    @right_depth_tbl.delete(r)
+  end
+
+  def left_get_depth(l)
+    @left_depth_tbl[l]
+  end
+
+  def right_get_depth(r)
+    @right_depth_tbl[r]
+  end
+
+  def left_set_depth(l, t)
+    @left_depth_tbl[l] = t
+  end
+
+  def right_set_depth(r, t)
+    @right_depth_tbl[r] = t
   end
 
   def free_variables
