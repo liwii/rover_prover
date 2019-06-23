@@ -11,6 +11,11 @@ class Sequent
     @depth = depth
   end
 
+  def set_default_instantiation_time(time)
+    @left.each { |l| l.set_instantiation_time(time) }
+    @right.each { |r| r.set_instantiation_time(time) }
+  end
+
   def left_add(l)
     @left.push(l)
     @left_depth_tbl[l] = 0

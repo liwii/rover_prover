@@ -14,6 +14,15 @@ describe Sequent do
   let (:sequent2) { Sequent.new([p, q], [And.new(q, r), q, r], [], 0) }
   let (:sequent3) { Sequent.new([p, r], [And.new(q, r), q, r], [], 0) }
 
+  describe 'set_default_instantiation_time' do
+    let (:time) { 10 }
+    before { sequent.set_default_instantiation_time(time) }
+    it 'sets up all instantiation time' do
+      expect(sequent.left[0].terms[1].time).to eq(time)
+      expect(sequent.right[2].terms[0].time).to eq(time)
+    end
+  end
+
   describe 'left_add' do
     before { sequent.left_add(r) }
     it 'adds formula to left and sets up depth table' do
