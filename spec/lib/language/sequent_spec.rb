@@ -13,6 +13,32 @@ describe Sequent do
   let (:sequent) { Sequent.new([p, q], [And.new(q, r), q, r], [], 0) }
   let (:sequent2) { Sequent.new([p, q], [And.new(q, r), q, r], [], 0) }
   let (:sequent3) { Sequent.new([p, r], [And.new(q, r), q, r], [], 0) }
+  let (:sequent4) { Sequent.new([p], [And.new(q, r), q, r], [], 0) }
+
+  describe 'deepen' do
+    before { sequent.right_set_depth(q, 10) }
+    it 'does not change the contents of left and right' do
+      expect(sequent.deepen).to eql sequent
+    end
+
+    it 'saves depth table' do
+      expect(sequent.deepen.right_get_depth(q)).to eq 10
+    end
+
+    it 'sets up empty siblings if enables siblings' do
+      expect(sequent.deepen(enable_siblings: true).siblings).to eq []
+    end
+  end
+
+  describe 'trivial?' do
+    it 'returns true if right and left contains at least one same element' do
+      expect(sequent.trivial?).to be true
+    end
+
+    it 'returns false if right and left contains no common element' do
+      expect(sequent4.trivial?).to be false
+    end
+  end
 
   describe 'set_default_instantiation_time' do
     let (:time) { 10 }
@@ -20,6 +46,35 @@ describe Sequent do
     it 'sets up all instantiation time' do
       expect(sequent.left[0].terms[1].time).to eq(time)
       expect(sequent.right[2].terms[0].time).to eq(time)
+    end
+  end
+
+  describe 'left_formula' do
+    let(:and_t) { And.new(p, q) }
+    let(:or_t) { Or.new(p, q) }
+    let(:sequent_a) { Sequent.new([and_t, or_t], [p, q], [], 0) }
+    before { sequent_a.left_set_depth(and_t, 10) }
+    it 'returns left formula whose depth is less than that of others' do
+      expect(sequent_a.left_formula).to eq or_t
+    end
+
+    it 'returns nil if only predicates are on the left' do
+      expect(sequent.left_formula).to be nil
+    end
+  end
+
+  describe 'right_formula' do
+    let(:and_t) { And.new(p, q) }
+    let(:or_t) { Or.new(p, q) }
+    let(:sequent_a) { Sequent.new([p, q], [and_t, or_t], [], 0) }
+    let(:sequent_b) { Sequent.new([p, q], [p, q, r], [], 0) }
+    before { sequent_a.right_set_depth(and_t, 10) }
+    it 'returns right formula whose depth is less than that of others' do
+      expect(sequent_a.right_formula).to eq or_t
+    end
+
+    it 'returns nil if only predicates are on the right' do
+      expect(sequent_b.right_formula).to be nil
     end
   end
 
@@ -115,7 +170,7 @@ describe Sequent do
 
   describe 'to_s' do
     it 'returns the string expression of the sequent' do
-      expect(sequent.to_s).to eq ('p(x, s1), q(x, g(x, y)) ⊢ q(x, g(x, y)) ∧ r(z, s2), q(x, g(x, y)), r(z, s2)')
+      expect(sequent.to_s).to eq ('p(x, s1), q(x, g(x, y)) ⊢ (q(x, g(x, y)) ∧ r(z, s2)), q(x, g(x, y)), r(z, s2)')
     end
   end
 

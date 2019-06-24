@@ -1,3 +1,4 @@
+require_relative './formula/formulae.rb'
 class Sequent
   attr_reader :left, :right, :siblings, :depth
   def initialize(left, right, siblings, depth)
@@ -11,9 +12,33 @@ class Sequent
     @depth = depth
   end
 
+  def deepen(enable_siblings: false)
+    new_siblings = @siblings.nil? ? (enable_siblings ? [] : @siblings): @siblings.dup
+    new = Sequent.new(@left.dup, @right.dup, new_siblings, @depth + 1)
+    @left.each do |formula|
+      new.left_set_depth(formula, left_get_depth(formula))
+    end
+    @right.each do |formula|
+      new.right_set_depth(formula, right_get_depth(formula))
+    end
+    new
+  end
+
+  def trivial?
+    (@left & @right).length > 0
+  end
+
   def set_default_instantiation_time(time)
     @left.each { |l| l.set_instantiation_time(time) }
     @right.each { |r| r.set_instantiation_time(time) }
+  end
+
+  def left_formula
+    @left.reject { |f| f.is_a?(Predicate) }.min_by { |f| left_get_depth(f) }
+  end
+
+  def right_formula
+    @right.reject { |f| f.is_a?(Predicate) }.min_by { |f| right_get_depth(f) }
   end
 
   def left_add(l)

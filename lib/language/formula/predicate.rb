@@ -30,7 +30,8 @@ class Predicate < Formula
   end
 
   def to_s
-    "#{@name}(#{terms.join(', ')})"
+    terms_s = @terms.empty? ? "" : "(#{@terms.map(&:to_s).join(', ')})"
+    "#{@name}#{terms_s}"
   end
 
   def eql?(exp)

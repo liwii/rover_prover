@@ -38,7 +38,8 @@ class Function < Term
   end
 
   def to_s
-    "#{@name}(#{@terms.map(&:to_s).join(', ')})"
+    terms_s = @terms.empty? ? "" : "(#{@terms.map(&:to_s).join(', ')})"
+    "#{@name}#{terms_s}"
   end
 
   def unify(term)

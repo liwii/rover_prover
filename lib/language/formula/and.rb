@@ -31,7 +31,7 @@ class And < Formula
   end
 
   def to_s
-    "#{@formula_a.to_s} ∧ #{@formula_b.to_s}"
+    "(#{@formula_a.to_s} ∧ #{@formula_b.to_s})"
   end
 
   def eql?(exp)

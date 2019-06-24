@@ -59,7 +59,7 @@ describe And do
 
   describe 'to_s' do
     it 'returns its name and terms' do
-      expect(a1.to_s).to eq 'p(f(x, y), x) ∧ q(f(x, y), x)'
+      expect(a1.to_s).to eq '(p(f(x, y), x) ∧ q(f(x, y), x))'
     end
   end
 
