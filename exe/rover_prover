@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/rover_prover.rb'
+
+Rover::Main.run

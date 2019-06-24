@@ -7,12 +7,14 @@ class RoverLexer < RLTK::Lexer
   rule(/lemma/) { :LEMMA }
   rule(/remove/) { :REMOVE }
   rule(/reset/) { :RESET }
+  rule(/exit/) { :EXIT }
   rule(/\(/) { :LPAREN }
   rule(/\)/) { :RPAREN }
   rule(/\./) { :PERIOD }
   rule(/,/) { :COMMA }
   rule(/not/) { :NOT }
   rule(/and/) { :AND }
+  rule(/or/) { :OR }
   rule(/implies/) { :IMPLIES }
   rule(/forall/) { :FORALL }
   rule(/exists/) { :EXISTS }

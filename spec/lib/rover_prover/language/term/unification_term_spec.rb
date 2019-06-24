@@ -95,7 +95,7 @@ describe UnificationTerm do
     end
 
     it 'returns nil if the time of the argument is longer then that of itself' do
-      x.set_instantiation_time(100)
+      g.set_instantiation_time(100)
       expect(x.unify(g)).to be nil
     end
 

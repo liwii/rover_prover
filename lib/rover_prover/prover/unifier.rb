@@ -1,3 +1,4 @@
+require 'pry'
 class Unifier
 
   def unify_all(pairs_list)

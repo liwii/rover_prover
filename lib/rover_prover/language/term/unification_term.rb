@@ -32,7 +32,7 @@ class UnificationTerm < Term
   end
 
   def unify(term)
-    return nil if term.occurs(self) || @time > term.time
+    return nil if term.occurs(self) || term.time > @time
     { self => term }
   end
 end

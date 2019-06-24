@@ -13,6 +13,7 @@ class RoverParser < RLTK::Parser
     clause('LEMMA formula') { |_, e| Lemma.new(e) }
     clause('REMOVE formula') { |_, e| Remove.new(e) }
     clause('RESET') { |_| Reset.new }
+    clause('EXIIT') { |_| Exit.new }
     clause('formula') { |e| e }
   end
 

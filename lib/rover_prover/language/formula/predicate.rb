@@ -44,6 +44,7 @@ class Predicate < Formula
   def unify(term)
     return term.unify(self) if term.is_a?(UnificationTerm)
     return nil unless term.is_a?(Predicate)
+    return nil unless @name == term.name
     return nil unless @terms.length == term.terms.length
     term_pair = @terms.zip(term.terms)
     subst = {}

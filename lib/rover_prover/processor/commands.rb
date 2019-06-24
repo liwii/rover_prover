@@ -27,3 +27,6 @@ end
 
 class Reset
 end
+
+class Exit
+end

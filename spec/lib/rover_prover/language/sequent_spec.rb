@@ -161,10 +161,8 @@ describe Sequent do
   describe 'get_unifiable_pairs' do
     it 'suggests all unifiable pairs' do
       pairs = sequent.get_unifiable_pairs
-      expect(pairs[0][0]).to eql p
+      expect(pairs[0][0]).to eql q
       expect(pairs[0][1]).to eql q
-      expect(pairs[1][0]).to eql q
-      expect(pairs[1][1]).to eql q
     end
   end
 
