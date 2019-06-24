@@ -1,9 +1,12 @@
 ![Rover](./logo.png)
-Rover is an automated theorem prover for first-order logic. For any provable formula, this program is guaranteed to find the proof (eventually). However, as a consequence of the negative answer to Hilbert's *Entscheidungsproblem*, there are some unprovable formulae that will cause this program to loop forever.
+Rover is an automated theorem prover for first-order logic written in Ruby.It is translation of [theorem-prover](https://github.com/stepchowfun/theorem-prover) from Python.
+For any provable formula, this program is guaranteed to find the proof (eventually). However, as a consequence of the negative answer to Hilbert's *Entscheidungsproblem*, there are some unprovable formulae that will cause this program to loop forever.
+
 
 To get started, please `gem install rover_prover`:
 
 ```
+$ rover_prover
 Rover: First-Order Logic Theorem Prover
 2019 Koki Ryu
 2014 Stephan Boyer
