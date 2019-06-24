@@ -19,18 +19,14 @@ class RoverParser < RLTK::Parser
   production(:formula) do
     clause('FORALL SYMBOL PERIOD formula') { |_, s, _, f| ForAll.new(Variable.new(s), f) }
     clause('EXISTS SYMBOL PERIOD formula') { |_, s, _, f| ThereExists.new(Variable.new(s), f) }
-    clause('proposition') { |e| e }
+    clause('formula OR formula') { |e1, _, e2| Or.new(e1, e2) }
+    clause('formula AND formula') { |e1, _, e2| And.new(e1, e2) }
+    clause('formula IMPLIES formula') { |e1, _, e2| Implies.new(e1, e2) }
+    clause('literal') { |e| e }
   end
 
-  production(:proposition) do
-    clause('predicaten OR predicaten') { |e1, _, e2| Or.new(e1, e2) }
-    clause('predicaten AND predicaten') { |e1, _, e2| And.new(e1, e2) }
-    clause('predicaten IMPLIES predicaten') { |e1, _, e2| Implies.new(e1, e2) }
-    clause('predicaten') { |e| e }
-  end
-
-  production(:predicaten) do
-    clause('NOT predicate') { |_, e| Not.new(e) }
+  production(:literal) do
+    clause('NOT literal') { |_, e| Not.new(e) }
     clause('predicate') { |e| e }
   end
 
