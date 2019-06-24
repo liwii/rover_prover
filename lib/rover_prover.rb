@@ -2,7 +2,7 @@ require_relative 'rover_prover/processor/processor.rb'
 require_relative 'rover_prover/prover/prover.rb'
 require 'pry'
 
-module Rover
+module RoverProver
   module Main
     def self.run
       message = <<~MSG

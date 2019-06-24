@@ -62,7 +62,7 @@ describe ForAll do
 
   describe 'to_s' do
     it 'returns ∀, variable, and terms' do
-      expect(for_all.to_s).to eq '∀x. p(f(x, y, z), z)'
+      expect(for_all.to_s).to eq '(∀x. p(f(x, y, z), z))'
     end
   end
 

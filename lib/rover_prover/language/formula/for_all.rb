@@ -34,7 +34,7 @@ class ForAll < Formula
   end
 
   def to_s
-    "∀#{@variable.to_s}. #{@formula.to_s}"
+    "(∀#{@variable.to_s}. #{@formula.to_s})"
   end
 
   def eql?(exp)

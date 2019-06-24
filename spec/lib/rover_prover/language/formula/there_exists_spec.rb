@@ -62,7 +62,7 @@ describe ThereExists do
 
   describe 'to_s' do
     it 'returns ∃, variable, and terms' do
-      expect(there_exists.to_s).to eq '∃x. p(f(x, y, z), z)'
+      expect(there_exists.to_s).to eq '(∃x. p(f(x, y, z), z))'
     end
   end
 
