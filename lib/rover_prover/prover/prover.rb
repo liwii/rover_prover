@@ -1,6 +1,5 @@
 require_relative 'unifier.rb'
 require_relative '../language.rb'
-require 'pry'
 
 class Prover
   def prove_formula(axioms, formula)
@@ -146,11 +145,12 @@ class Prover
     new = sequent.deepen(enable_siblings: true)
     left_depth = sequent.left_get_depth(left)
     new.left_set_depth(left, left_depth + 1)
+    t = UnificationTerm.new(sequent.get_variable_name('t'))
+    t.set_instantiation_time(sequent.depth + 1)
     formula = left.formula.replace(
       left.variable,
-      UnificationTerm.new(sequent.get_variable_name('t'))
+      t
     )
-    formula.set_instantiation_time(sequent.depth + 1)
     unless new.left.include?(formula)
       new.left_add(formula)
       new.left_set_depth(formula, left_depth + 1)
@@ -166,8 +166,8 @@ class Prover
     new.left_remove(left)
     left_depth = sequent.left_get_depth(left)
     variable = Variable.new(sequent.get_variable_name('v'))
+    variable.set_instantiation_time(sequent.depth + 1)
     formula = left.formula.replace(left.variable, variable)
-    formula.set_instantiation_time(sequent.depth + 1)
     new.left_add(formula)
     new.left_set_depth(formula, left_depth + 1)
     unless new.siblings.nil?
@@ -239,8 +239,8 @@ class Prover
     new.right_remove(right)
     right_depth = sequent.right_get_depth(right)
     variable = Variable.new(sequent.get_variable_name('v'))
+    variable.set_instantiation_time(sequent.depth + 1)
     formula = right.formula.replace(right.variable, variable)
-    formula.set_instantiation_time(sequent.depth + 1)
     new.right_add(formula)
     new.right_set_depth(formula, right_depth + 1)
     unless new.siblings.nil?
@@ -253,12 +253,13 @@ class Prover
     new = sequent.deepen(enable_siblings: true)
     right_depth = sequent.right_get_depth(right)
     new.right_set_depth(right, right_depth + 1)
+    t = UnificationTerm.new(sequent.get_variable_name('t'))
+    t.set_instantiation_time(sequent.depth + 1)
     formula = right.formula.replace(
       right.variable,
-      UnificationTerm.new(sequent.get_variable_name('t'))
+      t
     )
     unless new.right.include?(formula)
-      formula.set_instantiation_time(sequent.depth + 1)
       new.right_add(formula)
     end
     new.right_set_depth(formula, right_depth + 1)

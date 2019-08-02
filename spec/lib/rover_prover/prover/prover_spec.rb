@@ -66,6 +66,16 @@ describe Prover do
       it { is_expected.to be true }
     end
 
+    context 'provable formula 4' do
+      let (:axioms) { 
+        []
+      }
+      let (:formula) {
+        ThereExists.new(y, Implies.new(q([x]), q([y])))
+      }
+      it { is_expected.to be true }
+    end
+
     context 'unprovable formula 1' do
       let (:axioms) { [] }
       let (:formula) {
